@@ -43,7 +43,7 @@ def suc():
 def fail():
     dbIp="10.138.15.205"
     #dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database='successMetrics',user='restproject',password='Pass_123',port=3306)
+    mydb = mysql.connector.connect(host=dbIp,database='failureMetrics',user='restproject',password='Pass_123',port=3306)
 
     mycursor = mydb.cursor()
 
