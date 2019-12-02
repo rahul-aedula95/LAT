@@ -17,9 +17,9 @@ app = Flask(__name__)
 # route http posts to this method
 @app.route('/success/', methods=['GET'])
 def suc():
-    dbIp="35.247.114.246"
-    dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database='successMetrics',user='TESTUSER',password='Pass_123',port=3306)
+    dbIp="10.138.15.205"
+    #dbIp="localhost"
+    mydb = mysql.connector.connect(host=dbIp,database='successMetrics',user='restproject',password='Pass_123',port=3306)
 
     mycursor = mydb.cursor()
 
@@ -28,7 +28,6 @@ def suc():
     mycursor.execute(sql)
     myresult = mycursor.fetchall()[0]
     mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
     message={'count of successes':myresult[0]}
     # convert the data to a PIL image type so we can extract dimensions
     try:
@@ -42,9 +41,9 @@ def suc():
 
 @app.route('/failure/', methods=['GET'])
 def fail():
-    dbIp="35.247.114.246"
-    dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database='failureMetrics',user='TESTUSER',password='Pass_123',port=3306)
+    dbIp="10.138.15.205"
+    #dbIp="localhost"
+    mydb = mysql.connector.connect(host=dbIp,database='successMetrics',user='restproject',password='Pass_123',port=3306)
 
     mycursor = mydb.cursor()
 
@@ -53,7 +52,6 @@ def fail():
     mycursor.execute(sql)
     myresult = mycursor.fetchall()[0]
     mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
     message={'count of failures':myresult[0]}
     # convert the data to a PIL image type so we can extract dimensions
     try:

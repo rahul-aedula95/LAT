@@ -13,7 +13,7 @@ channel.queue_bind(exchange='events',queue="processor")
 
 def writeToView(message):
     #connection to db
-    dbIp="10.138.15.199"
+    dbIp="10.138.15.205"
     #dbIp="localhost"
     mydb = mysql.connector.connect(host=dbIp,database="successMetrics",user='readprocessor1',password='Pass_123')
 
