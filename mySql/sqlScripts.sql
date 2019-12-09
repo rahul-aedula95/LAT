@@ -1,15 +1,31 @@
-create database successMetrics;
-use successMetrics;
+-- create database successMetrics;
+-- use successMetrics;
+--
+-- CREATE TABLE IF NOT EXISTS status (
+--     id INT  NOT NULL,
+--     app_status VARCHAR(255) NOT NULL
+--    ) ;
+--
+-- create database failureMetrics;
+-- use failureMetrics;
+--
+-- CREATE TABLE IF NOT EXISTS failure (
+--     id INT  NOT NULL,
+--     app_status VARCHAR(255) NOT NULL
+--       ) ;
 
-CREATE TABLE IF NOT EXISTS status (
+create database startMetrics;
+use startMetrics;
+
+CREATE TABLE IF NOT EXISTS start (
     id INT  NOT NULL,
     app_status VARCHAR(255) NOT NULL
    ) ;
 
-create database failureMetrics;
-use failureMetrics;
+create database finishMetrics;
+use finishMetrics;
 
-CREATE TABLE IF NOT EXISTS failure (
+CREATE TABLE IF NOT EXISTS finish (
     id INT  NOT NULL,
     app_status VARCHAR(255) NOT NULL
       ) ;

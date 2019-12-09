@@ -13,14 +13,14 @@ channel.queue_bind(exchange='events',queue="processorFailure")
 
 def writeToView(message):
     #connection to db
-    dbIp="10.138.15.205"
+    dbIp="10.138.15.211"
     #dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database="failureMetrics",user='readprocessor2',password='Pass_123')
+    mydb = mysql.connector.connect(host=dbIp,database="finishMetrics",user='readprocessor2',password='Pass_123')
 
     mycursor = mydb.cursor()
 
 
-    sql = "INSERT INTO failure VALUES (%s, %s)"
+    sql = "INSERT INTO finish VALUES (%s, %s)"
     val = (message.split(',')[0], message.split(',')[1])
 
     mycursor.execute(sql, val)
@@ -31,7 +31,7 @@ def writeToView(message):
 
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body.decode("utf-8") )
-    if body.decode("utf-8").split(',')[1] =='failure':
+    if body.decode("utf-8").split(',')[1] =='finish':
         writeToView(body.decode("utf-8") )
 
 channel.basic_consume(

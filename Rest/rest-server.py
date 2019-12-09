@@ -17,16 +17,17 @@ app = Flask(__name__)
 # route http posts to this method
 @app.route('/success/', methods=['GET'])
 def suc():
-    dbIp="10.138.15.205"
+    dbIp="10.138.15.211"
     #dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database='successMetrics',user='restproject',password='Pass_123',port=3306)
+    mydb = mysql.connector.connect(host=dbIp,database='finishMetrics',user='restproject',password='Pass_123',port=3306)
 
     mycursor = mydb.cursor()
 
-    sql = "SELECT COUNT(*) FROM status;"
+    sql = "SELECT COUNT(*) FROM finish;"
 
     mycursor.execute(sql)
     myresult = mycursor.fetchall()[0]
+
     mydb.commit()
     message={'count of successes':myresult[0]}
     # convert the data to a PIL image type so we can extract dimensions
@@ -41,18 +42,33 @@ def suc():
 
 @app.route('/failure/', methods=['GET'])
 def fail():
-    dbIp="10.138.15.205"
+    dbIp="10.138.15.211"
     #dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database='failureMetrics',user='restproject',password='Pass_123',port=3306)
+    out = 0
+    mydb = mysql.connector.connect(host=dbIp,database='finishMetrics',user='restproject',password='Pass_123',port=3306)
 
     mycursor = mydb.cursor()
 
-    sql = "SELECT COUNT(*) FROM failure;"
+    sql = "SELECT COUNT(*) FROM finish;"
 
     mycursor.execute(sql)
     myresult = mycursor.fetchall()[0]
+    out -= int(myresult[0])
     mydb.commit()
-    message={'count of failures':myresult[0]}
+
+
+    mydb = mysql.connector.connect(host=dbIp,database='startMetrics',user='restproject',password='Pass_123',port=3306)
+
+    mycursor = mydb.cursor()
+
+    sql = "SELECT COUNT(*) FROM start;"
+
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()[0]
+    out += int(myresult[0])
+    mydb.commit()
+
+    message={'count of failures':str(out)}
     # convert the data to a PIL image type so we can extract dimensions
     try:
 

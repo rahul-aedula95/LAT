@@ -2,7 +2,7 @@ import pika
 import mysql.connector
 
 mqIp = "10.138.15.202"
-credentials = pika.PlainCredentials(username='temp', password='temp')
+credentials = pia.PlainCredentials(username='temp', password='temp')
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=mqIp,credentials=credentials))
 channel = connection.channel()
@@ -13,14 +13,14 @@ channel.queue_bind(exchange='events',queue="processor")
 
 def writeToView(message):
     #connection to db
-    dbIp="10.138.15.205"
+    dbIp="10.138.15.211"
     #dbIp="localhost"
-    mydb = mysql.connector.connect(host=dbIp,database="successMetrics",user='readprocessor1',password='Pass_123')
+    mydb = mysql.connector.connect(host=dbIp,database="startMetrics",user='readprocessor1',password='Pass_123')
 
     mycursor = mydb.cursor()
 
 
-    sql = "INSERT INTO status VALUES (%s, %s)"
+    sql = "INSERT INTO start VALUES (%s, %s)"
     val = (message.split(',')[0], message.split(',')[1])
 
     mycursor.execute(sql, val)
@@ -31,7 +31,7 @@ def writeToView(message):
 
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body.decode("utf-8") )
-    if body.decode("utf-8").split(',')[1] =='success':
+    if body.decode("utf-8").split(',')[1] =='start':
         writeToView(body.decode("utf-8") )
 
 channel.basic_consume(

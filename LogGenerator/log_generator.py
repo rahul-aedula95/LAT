@@ -19,12 +19,12 @@ def pushToWriterProcessorQueue(message):
 def generateLogsAndPush(input):
     for i in range(input):
         id = random.randint(0,1000000)
-        message = str(time.time())+';'+str(id)+','+'success'
+        message = str(time.time())+';'+str(id)+','+'start'
         pushToWriterProcessorQueue(message)
         print(message)
-        message = str(time.time())+';'+str(id)+','+'failure'
+        message = str(time.time())+';'+str(id)+','+'finish'
         if random.randint(0,1000000)%2 == 0:
             print(message)
             pushToWriterProcessorQueue(message)
-            
+
 generateLogsAndPush(input)

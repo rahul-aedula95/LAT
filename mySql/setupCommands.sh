@@ -1,3 +1,4 @@
+sudo apt-get update
 sudo apt-get install -y mysql-server
 sudo ufw enable
 sudo ufw allow mysql
